@@ -2,14 +2,22 @@ from django.contrib import admin
 from .models import Nino,Area_Dental,Area_Medica,Area_Psicologica,Area_Social,Idioma,Enfermedad,Etnia,Motivo_Ingreso,Fuente_Estre,Nivel_Nutricion,Relacion_Familia,Noticia
 from django.utils.safestring import mark_safe
 
+
 # Register your models here.
 
 class NinoAdmin(admin.ModelAdmin):
     '''Admin View for Nino'''
 
-    list_display = ('nombre_nino','apellido_nino','sexo','motivo_ingreso','fecha_nacimiento','cui','fecha_evaluacion',)
+    list_display = ('nombre_nino','apellido_nino','sexo','motivo_ingreso','fecha_nacimiento','cui','image_display',)
     list_filter = ('fecha_evaluacion','motivo_ingreso',)
-    search_fields = ('nombre_nino',)
+    search_fields = ('nombre_nino',"apellido_nino",)
+    readonly_fields = ("image_display",)
+    def image_display(self, obj):
+        return mark_safe(
+            '<img src="{url}" style="max-width: 100px"/>'.format(url=obj.image.url)
+        )
+
+
 
 
 class Area_DentalAdmin(admin.ModelAdmin):

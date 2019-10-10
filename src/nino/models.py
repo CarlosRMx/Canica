@@ -160,6 +160,9 @@ class Nino(models.Model):
 
     def __str__(self):
         return self.nombre_nino+" "+self.apellido_nino
+    
+    def get_absolute_url(self):
+        return u'/nino/%d' % self.id 
 
 class Area_Dental(models.Model):
     """Model definition for Area_Dental."""
