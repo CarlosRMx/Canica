@@ -8,16 +8,14 @@ from django.utils.safestring import mark_safe
 class NinoAdmin(admin.ModelAdmin):
     '''Admin View for Nino'''
 
-    list_display = ('nombre_nino','apellido_nino','sexo','motivo_ingreso','fecha_nacimiento','cui','image_display',)
+    list_display = ('nombre_nino','apellido_nino','sexo','motivo_ingreso','fecha_nacimiento','cui','Fotografia',)
     list_filter = ('fecha_evaluacion','motivo_ingreso',)
-    search_fields = ('nombre_nino',"apellido_nino",)
-    readonly_fields = ("image_display",)
-    def image_display(self, obj):
+    search_fields = ('nombre_nino','apellido_nino','cui',)
+    readonly_fields = ("Fotografia",)
+    def Fotografia(self, obj):
         return mark_safe(
             '<img src="{url}" style="max-width: 100px"/>'.format(url=obj.image.url)
         )
-
-
 
 
 class Area_DentalAdmin(admin.ModelAdmin):
@@ -60,7 +58,13 @@ class EnfermedadAdmin(admin.ModelAdmin):
 
     list_display = ('nombre_enfermedad','estado',)
     search_fields = ('nombre_enfermedad',)
-    
+
+
+class EtniaAdmin(admin.ModelAdmin):
+    '''Admin View for Etnia'''
+
+    list_display = ('nombre_etnia','estado',)
+
 ###########Paginas registradas en la administracion##########################
 admin.site.site_header="CANICA"
 admin.site.register(Nino,NinoAdmin)
@@ -69,7 +73,7 @@ admin.site.register(Area_Medica,Area_MedicaAdmin)
 admin.site.register(Area_Psicologica,Area_PsicologicaAdmin)
 admin.site.register(Area_Social,Area_SocialAdmin)
 admin.site.register(Enfermedad,EnfermedadAdmin)
-admin.site.register(Etnia)
+admin.site.register(Etnia,EtniaAdmin)
 admin.site.register(Motivo_Ingreso,Motivo_IngresoAdmin)
 admin.site.register(Nivel_Nutricion)
 admin.site.register(Fuente_Estre)

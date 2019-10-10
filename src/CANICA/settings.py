@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'nino',
+    'gestion_inventario',
 ]
 
 MIDDLEWARE = [
