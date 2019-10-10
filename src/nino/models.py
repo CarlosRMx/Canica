@@ -5,9 +5,9 @@ class Motivo_Ingreso(models.Model):
     """Model definition for Motivo_Ingreso."""
 
     # TODO: Define fields here
-    nombre_motivo = models.CharField(max_length=60)
-    descripcion=models.TextField()
-    estado=models.BooleanField(default=True)
+    nombre_motivo = models.CharField(max_length=60,verbose_name="Motivo de ingreso")
+    descripcion=models.TextField(verbose_name="Descripción")
+    estado=models.BooleanField(default=True,verbose_name="Estado")
 
     class Meta:
         """Meta definition for Motivo_Ingreso."""
@@ -22,8 +22,8 @@ class Idioma(models.Model):
     """Model definition for Idioma."""
 
     # TODO: Define fields here
-    nombre_idioma = models.CharField(max_length=60)
-    estado=models.BooleanField(default=True)
+    nombre_idioma = models.CharField(max_length=60,verbose_name="Nombre del idioma")
+    estado=models.BooleanField(default=True,verbose_name="Estado")
 
     class Meta:
         """Meta definition for Idioma."""
@@ -38,9 +38,9 @@ class Enfermedad(models.Model):
     """Model definition for Enfermedad."""
 
     # TODO: Define fields here
-    nombre_enfermedad = models.CharField(max_length=60)
-    descripcion=models.TextField()
-    estado=models.BooleanField(default=True)
+    nombre_enfermedad = models.CharField(max_length=60,verbose_name="Nombre de la enfermedad")
+    descripcion=models.TextField(verbose_name="Descripción")
+    estado=models.BooleanField(default=True,verbose_name="Estado")
 
     class Meta:
         """Meta definition for Enfermedad."""
@@ -55,9 +55,9 @@ class Nivel_Nutricion(models.Model):
     """Model definition for Nivel_Nutricion."""
 
     # TODO: Define fields here
-    nivel = models.CharField(max_length=60)
-    descripcion=models.TextField()
-    estado=models.BooleanField(default=True)
+    nivel = models.CharField(max_length=60,verbose_name="Nivel de nutrición")
+    descripcion=models.TextField(verbose_name="Descripción")
+    estado=models.BooleanField(default=True,verbose_name="Estado")
 
     class Meta:
         """Meta definition for Nivel_Nutricion."""
@@ -72,8 +72,8 @@ class Etnia(models.Model):
     """Model definition for Etnia."""
 
     # TODO: Define fields here
-    nombre_etnia = models.CharField(max_length=60)
-    estado=models.BooleanField(default=True)
+    nombre_etnia = models.CharField(max_length=60,verbose_name="Nombre de la etnia")
+    estado=models.BooleanField(default=True,verbose_name="Estado")
 
     class Meta:
         """Meta definition for Etnia."""
@@ -88,9 +88,9 @@ class Fuente_Estre(models.Model):
     """Model definition for Fuente_Estre."""
 
     # TODO: Define fields here
-    nombre_fuente = models.CharField(max_length=60)
-    descripcion=models.TextField()
-    estado=models.BooleanField(default=True)
+    nombre_fuente = models.CharField(max_length=60,verbose_name="Fuente de estrés")
+    descripcion=models.TextField(verbose_name="Descripción")
+    estado=models.BooleanField(default=True,verbose_name="Estado")
 
     class Meta:
         """Meta definition for Fuente_Estre."""
@@ -105,7 +105,7 @@ class Relacion_Familia(models.Model):
     """Model definition for Relacion_Familia."""
 
     # TODO: Define fields here
-    tipo_relacion = models.CharField(max_length=60)
+    tipo_relacion = models.CharField(max_length=60,verbose_name="Tipo de relación familiar")
 
     class Meta:
         """Meta definition for Relacion_Familia."""
@@ -125,25 +125,32 @@ class Nino(models.Model):
         ("M","Masculino"),
         ("F","Femenino"),
     ]
-    fecha_evaluacion = models.DateField()
-    nombre_nino = models.CharField(max_length=60)
-    apellido_nino = models.CharField(max_length=60)
-    image = models.ImageField(upload_to="img")
-    cui = models.CharField(max_length=60)
-    sexo = models.CharField(max_length=3,choices=SEXO)
-    grado_educativo=models.CharField(max_length=30,null=True,blank=True)
-    fecha_nacimiento = models.DateField()
-    lugar_nacimiento = models.CharField(max_length=60)
-    lugar_residencia = models.CharField(max_length=60)
+    EDUCACION=[
+        ("P","Primario"),
+        ("Pr","Pre-Primario"),
+        ("Ba","Básico"),
+        ("D","Diversificado"),
+
+    ]
+    fecha_evaluacion = models.DateField(verbose_name="Fecha de evaluación Biopsicosocial")
+    nombre_nino = models.CharField(max_length=60,verbose_name="Nombres del niño")
+    apellido_nino = models.CharField(max_length=60,verbose_name="Apellidos del niño")
+    image = models.ImageField(upload_to="img",verbose_name="Fotografía del niño")
+    cui = models.CharField(max_length=60,verbose_name="CUI")
+    sexo = models.CharField(max_length=3,choices=SEXO,verbose_name="Sexo")
+    grado_educativo=models.CharField(max_length=30,choices=EDUCACION,null=True,blank=True,verbose_name="Nivel educativo")
+    fecha_nacimiento = models.DateField(verbose_name="Fecha de nacimiento")
+    lugar_nacimiento = models.CharField(max_length=60,verbose_name="Lugar de nacimiento")
+    lugar_residencia = models.CharField(max_length=60,verbose_name="Lugar de residencia")
     motivo_ingreso=models.ForeignKey(Motivo_Ingreso,on_delete=models.PROTECT)
-    ocupacion = models.CharField(max_length=60,null=True,blank=True)
-    religion = models.CharField(max_length=30,null=True,blank=True)
+    ocupacion = models.CharField(max_length=60,null=True,blank=True,verbose_name="Ocupación")
+    religion = models.CharField(max_length=30,null=True,blank=True,verbose_name="Religión")
     idioma=models.ForeignKey(Idioma,on_delete=models.PROTECT)
     etnia=models.ForeignKey(Etnia,on_delete=models.PROTECT)
-    nombre_madre = models.CharField(max_length=100)
-    nombre_padre = models.CharField(max_length=100)
-    fecha_ingreso = models.DateField()
-    estado=models.BooleanField(default=True)
+    nombre_madre = models.CharField(max_length=100,verbose_name="Nombre completo de la madre")
+    nombre_padre = models.CharField(max_length=100,verbose_name="Nombre completo del padre")
+    fecha_ingreso = models.DateField(verbose_name="Fecha de ingreso a CANICA")
+    estado=models.BooleanField(default=True,verbose_name="Estado")
 
     class Meta:
         """Meta definition for Nino."""
@@ -159,9 +166,9 @@ class Area_Dental(models.Model):
 
     # TODO: Define fields here
     nino=models.ForeignKey(Nino,on_delete=models.PROTECT)
-    diagnostico = models.TextField()
-    intervencion=models.TextField()
-    proxima_cita=models.DateField()
+    diagnostico = models.TextField(verbose_name="Dignóstico")
+    intervencion=models.TextField(verbose_name="Intervención médica")
+    proxima_cita=models.DateField(verbose_name="Próxima cita")
     estado=models.BooleanField(default=True)
 
     class Meta:
@@ -178,11 +185,11 @@ class Area_Social(models.Model):
 
     # TODO: Define fields here
     nino=models.ForeignKey(Nino,on_delete=models.PROTECT)
-    rol_familiar=models.TextField(null=True)
+    rol_familiar=models.TextField(null=True,blank=True,verbose_name="Rol familiar")
     relacion_familiar=models.ForeignKey(Relacion_Familia,on_delete=models.PROTECT)
     fuente_estres=models.ForeignKey(Fuente_Estre,on_delete=models.PROTECT)
-    visitas_autorizadas=models.BooleanField()
-    recurso_familiar=models.CharField(max_length=60,null=True)
+    visitas_autorizadas=models.BooleanField(verbose_name="Visitas Autorizadas")
+    recurso_familiar=models.CharField(max_length=60,null=True,blank=True,verbose_name="Recurso familiar")
 
 
     class Meta:
@@ -199,12 +206,12 @@ class Area_Psicologica(models.Model):
 
     # TODO: Define fields here
     nino=models.ForeignKey(Nino,on_delete=models.CASCADE)
-    estado_emocional=models.TextField(null=True)
-    aspecto_clinico=models.TextField(null=True)
-    percepcion_situacion_desproteccion=models.BooleanField()
-    percepcion_calidad_vida=models.BooleanField()
-    percepcion_temores_actuales=models.TextField(null=True)
-    percepcion_temores_futuros=models.TextField(null=True)
+    estado_emocional=models.TextField(null=True,verbose_name="Estado emocional")
+    aspecto_clinico=models.TextField(null=True,verbose_name="Aspecto clínico")
+    percepcion_situacion_desproteccion=models.BooleanField(verbose_name="Percepción de la situación de desprotección")
+    percepcion_calidad_vida=models.BooleanField(verbose_name="Percepción de la calidad de vida en su hogar")
+    percepcion_temores_actuales=models.TextField(null=True,verbose_name="Percepción de temores actuales")
+    percepcion_temores_futuros=models.TextField(null=True,verbose_name="Percepción de temores futuros")
     enfermedad=models.ForeignKey(Enfermedad,on_delete=models.CASCADE)
 
     class Meta:
@@ -221,14 +228,14 @@ class Area_Medica(models.Model):
 
     # TODO: Define fields here
     nino=models.ForeignKey(Nino,on_delete=models.CASCADE)
-    peso=models.IntegerField()
-    altura=models.FloatField()
-    presencia_piojos=models.BooleanField()
-    presencia_acaros=models.BooleanField()
-    programa_vacunacion=models.BooleanField()
-    examen_sangre=models.BooleanField()
-    examne_orina=models.BooleanField()
-    estado_piel=models.TextField()
+    peso=models.IntegerField(verbose_name="Peso del niño")
+    altura=models.FloatField(verbose_name="Altura del niño")
+    presencia_piojos=models.BooleanField(verbose_name="Presencia de piojos")
+    presencia_acaros=models.BooleanField(verbose_name="Presencia de acaros")
+    programa_vacunacion=models.BooleanField(verbose_name="Programa de vacunación")
+    examen_sangre=models.BooleanField(verbose_name="Examen de sangre")
+    examne_orina=models.BooleanField(verbose_name="Examen de orina")
+    estado_piel=models.TextField(verbose_name="Estado de la piel")
     nivel_nutricion=models.ForeignKey(Nivel_Nutricion,on_delete=models.CASCADE)
 
     class Meta:
@@ -244,10 +251,10 @@ class Noticia(models.Model):
     """Model definition for Noticia."""
 
     # TODO: Define fields here
-    titulo_noticia=models.CharField(max_length=30)
-    imagen=models.ImageField(upload_to="img")
-    fecha_publicacion=models.DateField(auto_now_add=True)
-    descripcion=models.TextField()
+    titulo_noticia=models.CharField(max_length=40,verbose_name="Título de la noticia")
+    imagen=models.ImageField(upload_to="img",verbose_name="Fotografía de la notica")
+    fecha_publicacion=models.DateField(auto_now_add=True,verbose_name="Fecha de publicación")
+    descripcion=models.TextField(verbose_name="Descripción")
 
 
     class Meta:

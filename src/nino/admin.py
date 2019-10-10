@@ -1,10 +1,8 @@
 from django.contrib import admin
-from .models import Nino,Area_Dental,Area_Medica,Area_Psicologica,Area_Social,Idioma,Enfermedad,Etnia,Motivo_Ingreso,Fuente_Estre,Nivel_Nutricion,Relacion_Familia
+from .models import Nino,Area_Dental,Area_Medica,Area_Psicologica,Area_Social,Idioma,Enfermedad,Etnia,Motivo_Ingreso,Fuente_Estre,Nivel_Nutricion,Relacion_Familia,Noticia
 from django.utils.safestring import mark_safe
 
 # Register your models here.
-
-
 
 class NinoAdmin(admin.ModelAdmin):
     '''Admin View for Nino'''
@@ -37,16 +35,36 @@ class Area_PsicologicaAdmin(admin.ModelAdmin):
 
     list_display = ('nino','estado_emocional','percepcion_calidad_vida','enfermedad',)
     
+class IdiomaAdmin(admin.ModelAdmin):
+    '''Admin View for Idioma'''
+
+    list_display = ('nombre_idioma','estado',)
+    search_fields = ('nombre_idioma',)
+
+class Motivo_IngresoAdmin(admin.ModelAdmin):
+    '''Admin View for Motivo_Ingreso'''
+
+    list_display = ('nombre_motivo','estado',)
+    search_fields = ('nombre_motivo',)
+
+class EnfermedadAdmin(admin.ModelAdmin):
+    '''Admin View for Enfermedad'''
+
+    list_display = ('nombre_enfermedad','estado',)
+    search_fields = ('nombre_enfermedad',)
     
+###########Paginas registradas en la administracion##########################
+admin.site.site_header="CANICA"
 admin.site.register(Nino,NinoAdmin)
 admin.site.register(Area_Dental,Area_DentalAdmin)
 admin.site.register(Area_Medica,Area_MedicaAdmin)
 admin.site.register(Area_Psicologica,Area_PsicologicaAdmin)
 admin.site.register(Area_Social,Area_SocialAdmin)
-admin.site.register(Enfermedad)
+admin.site.register(Enfermedad,EnfermedadAdmin)
 admin.site.register(Etnia)
-admin.site.register(Motivo_Ingreso)
+admin.site.register(Motivo_Ingreso,Motivo_IngresoAdmin)
 admin.site.register(Nivel_Nutricion)
 admin.site.register(Fuente_Estre)
 admin.site.register(Relacion_Familia)
-admin.site.register(Idioma)
+admin.site.register(Idioma,IdiomaAdmin)
+admin.site.register(Noticia)
