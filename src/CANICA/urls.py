@@ -17,7 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from nino import views
 
 urlpatterns = [
+    path('',views.inicio, name='inicio'),
+    path('about/',views.about, name='about'),
+    path('contact/',views.contact, name='contact'),
+    path('noticias/',views.noticias, name='noticias'),
+    path('programas/',views.programas, name='programas'),
+    path('calendario/',views.calendario, name='calendario'),
     path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
